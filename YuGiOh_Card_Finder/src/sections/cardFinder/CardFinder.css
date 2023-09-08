@@ -1,0 +1,14 @@
+.card-finder-container {
+  display: flex;
+  flex-direction: row;
+  background: rgba(13, 13, 13, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2.5px);
+  -webkit-backdrop-filter: blur(2.5px);
+  border: 1px solid rgba(13, 13, 13, 0.3);
+  width: 95%;
+  height: 400px;
+  margin-top: 60px;
+  margin-left: 2.5%;
+}
