@@ -14,6 +14,7 @@ const CoinToss = ()=>{
     return(
 
         <div className="coin-image-container">
+            <p>{coinState==1?"Heads":"Tails"}</p>
             <img onClick={tossCoin} src={`assests/coin${coinState==1?"Heads":"Tails"}.png`} ></img>
             
         </div>

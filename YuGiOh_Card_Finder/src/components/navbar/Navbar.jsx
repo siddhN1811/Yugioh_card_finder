@@ -9,7 +9,7 @@ const Navbar = ()=>{
             
             <li className="menu"></li>
             <li className="menu" ><a className="menu" href="https://www.yugioh-card.com/en/"  target="_blank" rel="noreferrer">Official Yugioh Website</a></li>
-            <li className="menu" ><a className="menu" href="https://portfolio-react-js-fawn.vercel.app/   " target="_blank" rel="noreferrer">About me</a></li>
+            <li className="menu" ><a className="menu" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noreferrer">About me</a></li>
             
         </div>
     );

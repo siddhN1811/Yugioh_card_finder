@@ -1,6 +1,18 @@
 .coin-image-container img{
     margin-right: 30px;
-    width:160px;
+    width:150px;
     padding-left:20px
+    
 
+}
+.coin-image-container{
+    display: flex;
+    flex-direction: column-reverse;
+    color: rgb(162, 162, 162);
+    align-items: center;
+    margin-left: 2px;
+    justify-content: center;
+}
+.coin-image-container p{
+    margin-right: px;
 }
