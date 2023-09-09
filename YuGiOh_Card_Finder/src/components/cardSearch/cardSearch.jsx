@@ -1,8 +1,9 @@
-import  { useState} from "react";
+
+import { useState} from "react";
 import axios from "axios";
 import "./cardSearch.css";
 
-const CardSearch = () => {
+const CardSearch = ({ getData }) => {
   const [cardName, setCardName] = useState("Dark Magician");
   const [suggestions, setSuggestions] = useState([]);
   const [selectedSuggestion, setSelectedSuggestion] = useState("");
@@ -39,18 +40,18 @@ const CardSearch = () => {
     setSuggestions([]);
     setTimeout(() => {
       setShowSuggestions(false);
-    }, 100); 
+    }, 100);
   };
 
   const handleButtonClick = async () => {
     try {
       const response = await axios.get(
-        `https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${encodeURIComponent(
+        `https://db.ygoprodeck.com/api/v7/cardinfo.php?name=${encodeURIComponent(
           cardName
         )}`
       );
 
-      console.log(response.data);
+      getData(response.data);
     } catch (error) {
       console.error("Error fetching card data:", error);
     }
@@ -76,10 +77,7 @@ const CardSearch = () => {
         {showSuggestions && suggestions.length > 0 && (
           <ul className="suggestions active">
             {suggestions.map((suggestion, index) => (
-              <li
-                key={index}
-                onClick={() => handleSuggestionClick(suggestion)}
-              >
+              <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
                 {suggestion}
               </li>
             ))}
@@ -91,3 +89,4 @@ const CardSearch = () => {
 };
 
 export default CardSearch;
+

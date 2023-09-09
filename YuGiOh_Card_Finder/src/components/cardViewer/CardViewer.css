@@ -7,3 +7,8 @@
     box-shadow: inset 0px 0px 10px 1px  #ffffff43; 
 
 }
+.card-viewer-container img{
+    margin-left: 10px;
+    width: 18vw;
+    height: 50vh;
+}

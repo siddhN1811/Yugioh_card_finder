@@ -1,8 +1,39 @@
-.card-information-container{
+
+.card-information-container {
     margin: 20px;
     margin-left: 50px;
     width: 450px;
-    height: 500;
+    max-height: 500px; 
     background-color: rgba(7, 0, 28, 0.199);
-    box-shadow: inset 0px 0px 10px 1px  #ffffff43; 
-}
+    box-shadow: inset 0px 0px 10px 1px #ffffff43;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 30px;
+    gap: 20px;
+    overflow-y: auto;
+  }
+  
+  .stats {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .stats li {
+    color: white;
+    width: 200px;
+  }
+  
+  .desc {
+    color: rgb(170, 170, 170);
+    overflow-y: auto; 
+  }
+  .name{
+    color: white;
+
+    padding: 2px;
+  }
+  
