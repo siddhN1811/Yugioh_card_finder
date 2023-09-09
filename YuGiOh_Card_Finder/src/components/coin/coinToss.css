@@ -1,3 +1,6 @@
-.dice-image-container{
+.coin-image-container img{
     margin-right: 30px;
+    width:160px;
+    padding-left:20px
+
 }

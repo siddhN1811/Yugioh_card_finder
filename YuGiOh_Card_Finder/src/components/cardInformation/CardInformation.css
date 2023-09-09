@@ -1,0 +1,8 @@
+.card-information-container{
+    margin: 20px;
+    margin-left: 50px;
+    width: 450px;
+    height: 500;
+    background-color: rgba(7, 0, 28, 0.199);
+    box-shadow: inset 0px 0px 10px 1px  #ffffff43; 
+}

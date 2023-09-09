@@ -1,0 +1,9 @@
+.card-viewer-container{
+    margin: 20px;
+    margin-left: 28px;
+    width: 300px;
+    height: 50vh;
+    background-color: rgba(7, 0, 28, 0.199);
+    box-shadow: inset 0px 0px 10px 1px  #ffffff43; 
+
+}
