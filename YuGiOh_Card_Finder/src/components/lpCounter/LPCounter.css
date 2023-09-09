@@ -11,7 +11,7 @@ justify-content: center;
     height: 40px;
    
 }
-input{
+.lp-counter-container input{
     background-color: rgba(0, 0, 0, 0.164);
     border-radius: 3px 3px 10px 10px ;
     /* border: 3px solid #00eab0; */

@@ -1,0 +1,75 @@
+
+.card-search-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    margin-left: 20px;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+  }
+  .search-bar{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+  .card-search-container input {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.164);
+    border-radius: 13px;
+    width: 15vw;
+    border: none;
+    color: rgb(0, 255, 166);
+    outline: none;
+    box-shadow: inset 0px 0px 5px 1px #11ffef;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .card-search-container button {
+    background-color: #11ffef;
+    border: none;
+    border-radius: 13px;
+    color: #000;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+    padding: 5px;
+  }
+  
+  .card-search-container button:hover {
+    background-color: #0bc05c;
+  }
+  
+
+
+
+
+  .suggestions {
+    background-color: rgba(0, 0, 0, 0.164);
+    border-radius: 13px;
+    color: rgb(0, 255, 166);
+    max-height: 250px; 
+    overflow-y: auto; 
+    width: calc(23vw - 2px); 
+    z-index: 1;
+    list-style-type: none; 
+    margin: 0;
+    padding: 0;
+    margin-left: 5vw;
+  }
+  
+  .suggestions li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .suggestions li:hover {
+    background-color: #0bc0c0;
+  }
+  

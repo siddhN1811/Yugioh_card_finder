@@ -2,28 +2,43 @@ import { useState } from "react";
 import "./LPCounter.css";
 
 const LPCounter = () => {
-  const [lpValue,setLpValue] = useState(8000);
-  const [inputValue,setInputValue] = useState(0);
+  const [lpValue, setLpValue] = useState(8000);
+  const [inputValue, setInputValue] = useState("");
 
-  const DecreaseLp = (value)=>{
-    setLpValue(lpValue-value);
+  const setLp = (e)=>{
+    setLpValue(e.target.value)
   }
-  const IncreaseLP = (value)=>{
-    setLpValue(lpValue+parseInt(value));
-   
-  }
-  const TakeInput=(e)=>{
-    setInputValue(e.target.value)
-  }
+
+  const DecreaseLp = () => {
+    setLpValue(lpValue - parseInt(inputValue));
+  };
+
+  const IncreaseLP = () => {
+    setLpValue(lpValue + parseInt(inputValue));
+  };
+
+  const TakeInput = (e) => {
+    setInputValue(e.target.value);
+  };
+
   return (
     <div className="lp-counter-container">
-      <input type="number"  value={lpValue}/>
-      
+      <input
+        type="number"
+        value={lpValue}
+        onChange={setLp}
+      />
+
       <div className="lp-changer">
-        <button onClick={()=>IncreaseLP(inputValue) }>+</button>
-        <input type="number"  onChange={TakeInput} value={inputValue}/>
-        <button onClick={()=>DecreaseLp(inputValue)}>-</button>
-      </div><button onClick={()=>setLpValue(8000)}>Reset</button>
+        <button onClick={IncreaseLP}>+</button>
+        <input
+          type="number"
+          onChange={TakeInput}
+          value={inputValue}
+        />
+        <button onClick={DecreaseLp}>-</button>
+      </div>
+      <button onClick={() => setLpValue(8000)}>Reset</button>
     </div>
   );
 };
