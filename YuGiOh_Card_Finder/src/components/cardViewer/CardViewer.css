@@ -1,7 +1,8 @@
 .card-viewer-container{
+    display: flex;
     margin: 20px;
     margin-left: 28px;
-    width: 300px;
+    width: 20vw;
     height: 50vh;
     background-color: rgba(7, 0, 28, 0.199);
     box-shadow: inset 0px 0px 10px 1px  #ffffff43; 
@@ -11,4 +12,5 @@
     margin-left: 10px;
     width: 18vw;
     height: 50vh;
+
 }
