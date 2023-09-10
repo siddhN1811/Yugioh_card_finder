@@ -8,9 +8,19 @@
   -webkit-backdrop-filter: blur(2.5px);
   border: 1px solid rgba(13, 13, 13, 0.3);
   width: 95%;
-  height: 400px;
+  height:min-content;
+  padding: 10px;
   margin-top: 60px;
   margin-left: 2.5%;
   box-shadow: inset 0px 0px 3100px 1px  #11ffef44; 
 
+}
+@media (max-width:930px) {
+  .card-finder-container{
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .card-viewer-container img{
+    margin: 0;
+  }  
 }

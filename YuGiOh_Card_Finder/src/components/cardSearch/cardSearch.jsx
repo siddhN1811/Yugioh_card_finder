@@ -71,7 +71,7 @@ const CardSearch = ({ getData }) => {
             }, 100);
           }}
         />
-        <button onClick={handleButtonClick}>Search</button>
+        <button className="search-button" onClick={handleButtonClick}>Search</button>
       </div>
       <div>
         {showSuggestions && suggestions.length > 0 && (

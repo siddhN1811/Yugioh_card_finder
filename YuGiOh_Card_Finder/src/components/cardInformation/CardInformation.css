@@ -2,7 +2,7 @@
 .card-information-container {
     margin: 20px;
     margin-left: 50px;
-    width: 450px;
+    width:60%;
     max-height: 500px; 
     background-color: rgba(7, 0, 28, 0.199);
     box-shadow: inset 0px 0px 10px 1px #ffffff43;

@@ -32,10 +32,20 @@ button{
     color: rgb(0, 255, 166);
     outline: none;
 margin: 5px;
+margin-top: -18px;
 max-width: 60px;
 align-items: center;
     /* box-shadow: inset 0px 0px 5px 1px  #11ffef;  */
 }
 button:active{
     border: 1px solid #e9e4e4;
+}
+
+@media (max-width:930px) {
+
+.lp-counter-container{
+    margin: 0;
+    margin-top: 20px;
+    margin-left: 5%;
+}
 }
