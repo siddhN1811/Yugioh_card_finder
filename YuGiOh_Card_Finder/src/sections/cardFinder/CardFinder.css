@@ -19,6 +19,7 @@
   .card-finder-container{
     flex-direction: column-reverse;
     align-items: center;
+    width: 90%;
   }
   .card-viewer-container img{
     margin: 0;

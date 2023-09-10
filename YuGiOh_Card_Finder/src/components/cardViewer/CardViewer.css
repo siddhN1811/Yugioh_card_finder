@@ -38,5 +38,7 @@
   
   @media (max-width:930px) {
 
-
+.card-viewer-container{
+  z-index: 1;
+}
   }

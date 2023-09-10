@@ -78,3 +78,12 @@
     background-color: #0bc0c0;
   }
   
+
+  @media (max-width:930px) {
+
+    .suggestions{
+      width: 80%;
+      margin: 8%;
+      z-index: 5;
+    }
+  }
