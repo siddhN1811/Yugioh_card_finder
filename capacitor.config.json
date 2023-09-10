@@ -1,0 +1,8 @@
+{
+  "appId": "com.yugioh_essentials.app",
+  "appName": "Yugioh Essentials",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}

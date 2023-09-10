@@ -1,0 +1,8 @@
+{
+  "appId": "com.yugiohEssentials.app",
+  "appName": "yugioh-card-finder",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}
