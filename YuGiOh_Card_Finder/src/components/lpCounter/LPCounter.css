@@ -48,4 +48,8 @@ button:active{
     margin-top: 20px;
     margin-left: 5%;
 }
+button{
+width: fit-content;
+padding: 10px;
+margin: 15px;
 }

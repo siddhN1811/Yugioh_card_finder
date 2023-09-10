@@ -20,3 +20,8 @@
     margin-right:0px;
     margin-top: -10px;
 }
+@media (max-width:930px) {
+    .coin-image-container{
+        margin-left: 5%;
+    }
+}
