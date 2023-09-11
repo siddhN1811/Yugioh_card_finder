@@ -34,10 +34,12 @@ button{
 margin: 5px;
 margin-top: -18px;
 max-width: 60px;
+padding: 10px;
 align-items: center;
     /* box-shadow: inset 0px 0px 5px 1px  #11ffef;  */
 }
 button:active{
+    
     border: 1px solid #e9e4e4;
 }
 
