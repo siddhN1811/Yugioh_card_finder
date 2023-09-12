@@ -18,20 +18,20 @@
     display: flex;
     margin: 20px;
     margin-left: 28px;
-    width: 250; /* Take full width on small screens */
-    max-width: 250px; /* Limit width on larger screens */
-    height: auto; /* Automatically adjust height based on content */
+    width: 250; 
+    max-width: 250px; 
+    height: auto;
     background-color: rgba(7, 0, 28, 0.199);
     box-shadow: inset 0px 0px 10px 1px #ffffff43;
-    overflow: hidden; /* Prevent image overflow on small screens */
+    overflow: hidden;
     justify-content: center;
     
   }
   
   .card-viewer-container img {
     margin-left: 10px;
-    width: 100%; /* Take full width of the container */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%;
+    height: auto;
   }
   
 
