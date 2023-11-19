@@ -1,0 +1,52 @@
+/* .card-viewer-container{
+    display: flex;
+    margin: 20px;
+    margin-left: 28px;
+    width: 20vw;
+    height: 50vh;
+    background-color: rgba(7, 0, 28, 0.199);
+    box-shadow: inset 0px 0px 10px 1px  #ffffff43; 
+
+}
+.card-viewer-container img{
+    margin-left: 10px;
+    width: 18vw;
+    height: 50vh;
+
+} */
+.card-viewer-container {
+    display: flex;
+    margin: 20px;
+    margin-left: 28px;
+    width: 250; /* Take full width on small screens */
+    max-width: 250px; /* Limit width on larger screens */
+    height: auto; /* Automatically adjust height based on content */
+    background-color: rgba(7, 0, 28, 0.199);
+    box-shadow: inset 0px 0px 10px 1px #ffffff43;
+    overflow: hidden; /* Prevent image overflow on small screens */
+    justify-content: center;
+    
+  }
+  
+  .card-viewer-container img {
+    margin-left: 10px;
+    width: 100%; /* Take full width of the container */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+
+  
+  @media (max-width:930px) {
+
+.card-viewer-container{
+  z-index: 1;
+}
+  }
+  @media (max-width:1100px) {
+ 
+    .card-viewer-container {
+      margin: 0;
+      min-width: 200px;
+      height:300px;
+      margin: 10px;
+    }  }
