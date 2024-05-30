@@ -38,9 +38,8 @@ const CardSearch = ({ getData }) => {
     setSelectedSuggestion(suggestion);
     setCardName(suggestion);
     setSuggestions([]);
-    setTimeout(() => {
-      setShowSuggestions(false);
-    }, 100);
+    setShowSuggestions(false);
+    
   };
 
   const handleButtonClick = async () => {
@@ -68,12 +67,12 @@ const CardSearch = ({ getData }) => {
           onBlur={() => {
             setTimeout(() => {
               setShowSuggestions(false);
-            }, 100);
+            }, 1000);
           }}
         />
         <button className="search-button" onClick={handleButtonClick}>Search</button>
       </div>
-      <div>
+      <div className="suggestion-container">
         {showSuggestions && suggestions.length > 0 && (
           <ul className="suggestions active">
             {suggestions.map((suggestion, index) => (

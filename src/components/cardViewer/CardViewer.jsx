@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './CardViewer.css';
 
 const CardViewer = ({ data }) => {
-  console.log(data)
+  // console.log(data)
   if (!data || !Array.isArray(data) || data.length === 0) {
     return null;
   }
