@@ -5,6 +5,8 @@ import CardViewer from "../../../components/cardViewer/CardViewer";
 import axios from "axios";
 import CardInformation from "../../../components/cardInformation/CardInformation";
 import { useState, useEffect } from "react";
+import { Reorder } from "framer-motion";
+import { saveAs } from "file-saver";
 
 const saveDataToLocalStorage = (key, data) => {
   localStorage.setItem(key, JSON.stringify(data));
@@ -20,6 +22,25 @@ const DeckViewer = () => {
   const [mainDeckMonster, setMainDeckMonster] = useState([]);
   const [extraDeckMonster, setExtraDeckMonster] = useState([]);
   const [sideDeckMonster, setSideDeckMonster] = useState([]);
+
+
+  const generateYdkFile = () => {
+    const MMID = mainDeckMonster.map((entity) => entity.id);
+    const EMID = extraDeckMonster.map((entity) => entity.id);
+    const SMID = sideDeckMonster.map((entity) => entity.id);
+
+    let fileContent = "#main\n";
+    fileContent += MMID.join("\n") + "\n";
+    fileContent += "#extra\n";
+    fileContent += EMID.join("\n") + "\n";
+    fileContent += "!side\n";
+    fileContent += SMID.join("\n") + "\n";
+
+    const blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
+    saveAs(blob, "deck.ydk");
+  };
+
+  // console.log(fileData);
 
   const cardTypes = [
     "Fusion Monster",
@@ -49,11 +70,8 @@ const DeckViewer = () => {
   }, []);
 
   const addCardToDeck = (card, toSide) => {
-    
-  
-       const isExtraDeckCard = cardTypes.includes(card[0].type);
+    const isExtraDeckCard = cardTypes.includes(card[0].type);
 
-    
     const newCard = {
       id: data[0].id,
       image: data[0].card_images[0].image_url_small,
@@ -67,8 +85,8 @@ const DeckViewer = () => {
     const lenSD = sideDeckMonster.filter((d) => d.id === newCard.id).length;
     let maxCopiesAllowedSD = 3;
     const combinedLenSDMD = lenSD + lenMD;
-    const combinedLenSDED = lenED +lenSD;
-    console.log(lenED,lenMD,lenSD);
+    const combinedLenSDED = lenED + lenSD;
+    console.log(lenED, lenMD, lenSD,sideDeckMonster);
 
     if (data[0].banlist_info) {
       if (data[0].banlist_info.ban_tcg === "Banned") {
@@ -91,9 +109,8 @@ const DeckViewer = () => {
     if (
       !isExtraDeckCard &&
       maxCopiesAllowedMD !== 0 &&
-     
       mainDeckMonster.length < 60 &&
-      combinedLenSDMD < maxCopiesAllowedMD  &&
+      combinedLenSDMD < maxCopiesAllowedMD &&
       toSide == 0
     ) {
       const newDeck = [...mainDeckMonster, newCard];
@@ -120,19 +137,17 @@ const DeckViewer = () => {
       const newDeck = [...sideDeckMonster, newCard];
       setSideDeckMonster(newDeck);
       saveDataToLocalStorage("SideDeck", newDeck);
-    } 
-    else if (
+    } else if (
       !isExtraDeckCard &&
       maxCopiesAllowedSD !== 0 &&
-      mainDeckMonster.length < 15 &&
+      mainDeckMonster.length < 60 &&
       combinedLenSDMD < maxCopiesAllowedSD &&
       toSide == 1
     ) {
       const newDeck = [...sideDeckMonster, newCard];
       setSideDeckMonster(newDeck);
       saveDataToLocalStorage("SideDeck", newDeck);
-    } 
-    else {
+    } else {
       alert("Exceeding limit!");
     }
   };
@@ -143,11 +158,9 @@ const DeckViewer = () => {
       setExtraDeckMonster([]);
       setSideDeckMonster([]);
 
-
       saveDataToLocalStorage("MainDeck", []);
       saveDataToLocalStorage("ExtraDeck", []);
       saveDataToLocalStorage("SideDeck", []);
-
     } else {
       if (fromWhich === 0) {
         const newDeck = mainDeckMonster.filter((_, i) => i !== index);
@@ -202,29 +215,38 @@ const DeckViewer = () => {
             <CardInformation data={data}></CardInformation>
           </div>
           <div className="functionButton">
-            <button onClick={() => addCardToDeck(data,1)}>Add to Side-deck</button>
-            <button onClick={() => addCardToDeck(data,0)}>Add to deck</button>
+            <button onClick={() => addCardToDeck(data, 1)}>
+              Add to Side-deck
+            </button>
+            <button onClick={() => addCardToDeck(data, 0)}>Add to deck</button>
             <div className="deleteButton">
-            <button onClick={() => removeCardFromDeck(1000)}>Delete all</button>
-
+              <button onClick={() => removeCardFromDeck(1000)}>
+                Delete all
+              </button>
             </div>
           </div>
         </div>
         <div className="deck-viewer-background">
           <div className="main-deck">
             <ul>
-              {mainDeckMonster.map((mainDeckMonster, index) => (
-                <li
-                  key={index}
-                  onClick={() => cardClickHandler(mainDeckMonster.cardData)}
-                  onContextMenu={(e) => {
-                    e.preventDefault();
-                    removeCardFromDeck(index, 0);
-                  }}
-                >
-                  <img src={mainDeckMonster.image} alt={`Card ${index}`} />
-                </li>
-              ))}
+              <Reorder.Group
+                values={mainDeckMonster}
+                onReorder={setMainDeckMonster}
+              >
+                {mainDeckMonster.map((mainDeckMonster, index) => (
+                  <li
+                    draggable="true"
+                    key={index}
+                    onClick={() => cardClickHandler(mainDeckMonster.cardData)}
+                    onContextMenu={(e) => {
+                      e.preventDefault();
+                      removeCardFromDeck(index, 0);
+                    }}
+                  >
+                    <img src={mainDeckMonster.image} alt={`Card ${index}`} />
+                  </li>
+                ))}
+              </Reorder.Group>
             </ul>
           </div>
           <div className="extra-deck">
@@ -244,7 +266,7 @@ const DeckViewer = () => {
             </ul>
           </div>
           <div className="side-deck">
-          <ul>
+            <ul>
               {sideDeckMonster.map((sideDeckMonster, index) => (
                 <li
                   key={index}
@@ -261,6 +283,11 @@ const DeckViewer = () => {
           </div>
         </div>
         <div className="card-search">
+          <div className="ydk-button">
+            <button onClick={() => generateYdkFile()}>
+              Generate .ydk file
+            </button>
+          </div>
           <CardSearch getData={getData}></CardSearch>
         </div>
       </div>

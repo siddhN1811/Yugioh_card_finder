@@ -184,6 +184,12 @@ ul {
   border:solid 1px;
   border-color: rgb(0, 80, 71);
 }
+
+.ydk-button button{
+  width: 20vw;
+  min-width: 20vw;
+  max-width: 20vw;
+}
 @media (max-width:930px) {
 
     .sub-container{
