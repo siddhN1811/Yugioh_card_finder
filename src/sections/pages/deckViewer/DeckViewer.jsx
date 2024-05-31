@@ -10,7 +10,6 @@ const saveDataToLocalStorage = (key, data) => {
   localStorage.setItem(key, JSON.stringify(data));
 };
 
-// Function to get data from localStorage
 const getDataFromLocalStorage = (key) => {
   const jsonData = localStorage.getItem(key);
   return jsonData ? JSON.parse(jsonData) : null;
@@ -18,54 +17,158 @@ const getDataFromLocalStorage = (key) => {
 
 const DeckViewer = () => {
   const [data, setData] = useState(null);
-  const [deck, setDeck] = useState([]);
+  const [mainDeckMonster, setMainDeckMonster] = useState([]);
+  const [extraDeckMonster, setExtraDeckMonster] = useState([]);
+  const [sideDeckMonster, setSideDeckMonster] = useState([]);
+
+  const cardTypes = [
+    "Fusion Monster",
+    "Link Monster",
+    "Pendulum Effect Fusion Monster",
+    "Synchro Monster",
+    "Synchro Pendulum Effect Monster",
+    "Synchro Tuner Monster",
+    "XYZ Monster",
+    "XYZ Pendulum Effect Monster",
+  ];
 
   useEffect(() => {
-    const savedDeck = getDataFromLocalStorage("deck");
-    if (savedDeck) {
-      setDeck(savedDeck);
+    const savedDeckMD = getDataFromLocalStorage("MainDeck");
+    const savedDeckED = getDataFromLocalStorage("ExtraDeck");
+    const savedDeckSD = getDataFromLocalStorage("SideDeck");
+
+    if (savedDeckMD) {
+      setMainDeckMonster(savedDeckMD);
+    }
+    if (savedDeckED) {
+      setExtraDeckMonster(savedDeckED);
+    }
+    if (savedDeckED) {
+      setSideDeckMonster(savedDeckSD);
     }
   }, []);
 
-  const addCardToDeck = (card) => {
-    card = {
+  const addCardToDeck = (card, toSide) => {
+    
+  
+       const isExtraDeckCard = cardTypes.includes(card[0].type);
+
+    
+    const newCard = {
       id: data[0].id,
       image: data[0].card_images[0].image_url_small,
+      cardData: data,
     };
 
-    const len = deck.filter(d => d.id === card.id).length;
-    let maxCopiesAllowed = 3;
+    const lenMD = mainDeckMonster.filter((d) => d.id === newCard.id).length;
+    let maxCopiesAllowedMD = 3;
+    const lenED = extraDeckMonster.filter((d) => d.id === newCard.id).length;
+    let maxCopiesAllowedED = 3;
+    const lenSD = sideDeckMonster.filter((d) => d.id === newCard.id).length;
+    let maxCopiesAllowedSD = 3;
+    const combinedLenSDMD = lenSD + lenMD;
+    const combinedLenSDED = lenED +lenSD;
+    console.log(lenED,lenMD,lenSD);
 
     if (data[0].banlist_info) {
-      if (data[0].banlist_info.ban_tcg === 'Banned') {
-        maxCopiesAllowed = 0;
+      if (data[0].banlist_info.ban_tcg === "Banned") {
+        maxCopiesAllowedMD = 0;
+        maxCopiesAllowedED = 0;
+        maxCopiesAllowedSD = 0;
       }
-      if (data[0].banlist_info.ban_tcg === 'Limited') {
-        maxCopiesAllowed = 1;
+      if (data[0].banlist_info.ban_tcg === "Limited") {
+        maxCopiesAllowedMD = 1;
+        maxCopiesAllowedED = 1;
+        maxCopiesAllowedSD = 1;
       }
-      if (data[0].banlist_info.ban_tcg === 'Semi-Limited') {
-        maxCopiesAllowed = 2;
+      if (data[0].banlist_info.ban_tcg === "Semi-Limited") {
+        maxCopiesAllowedMD = 2;
+        maxCopiesAllowedED = 2;
+        maxCopiesAllowedSD = 2;
       }
     }
 
-    if (maxCopiesAllowed !== 0 && len < maxCopiesAllowed && deck.length < 60) {
-      const newDeck = [...deck, card];
-      setDeck(newDeck);
-      saveDataToLocalStorage("deck", newDeck);
-    } else {
-      alert("Exceeding Limit!!");
+    if (
+      !isExtraDeckCard &&
+      maxCopiesAllowedMD !== 0 &&
+     
+      mainDeckMonster.length < 60 &&
+      combinedLenSDMD < maxCopiesAllowedMD  &&
+      toSide == 0
+    ) {
+      const newDeck = [...mainDeckMonster, newCard];
+      setMainDeckMonster(newDeck);
+      saveDataToLocalStorage("MainDeck", newDeck);
+    } else if (
+      isExtraDeckCard &&
+      maxCopiesAllowedED !== 0 &&
+      lenED < maxCopiesAllowedED &&
+      extraDeckMonster.length < 15 &&
+      combinedLenSDED < maxCopiesAllowedSD &&
+      toSide != 1
+    ) {
+      const newDeck = [...extraDeckMonster, newCard];
+      setExtraDeckMonster(newDeck);
+      saveDataToLocalStorage("ExtraDeck", newDeck);
+    } else if (
+      isExtraDeckCard &&
+      maxCopiesAllowedSD !== 0 &&
+      mainDeckMonster.length < 15 &&
+      combinedLenSDED < maxCopiesAllowedSD &&
+      toSide == 1
+    ) {
+      const newDeck = [...sideDeckMonster, newCard];
+      setSideDeckMonster(newDeck);
+      saveDataToLocalStorage("SideDeck", newDeck);
+    } 
+    else if (
+      !isExtraDeckCard &&
+      maxCopiesAllowedSD !== 0 &&
+      mainDeckMonster.length < 15 &&
+      combinedLenSDMD < maxCopiesAllowedSD &&
+      toSide == 1
+    ) {
+      const newDeck = [...sideDeckMonster, newCard];
+      setSideDeckMonster(newDeck);
+      saveDataToLocalStorage("SideDeck", newDeck);
+    } 
+    else {
+      alert("Exceeding limit!");
     }
   };
 
-  const removeCardFromDeck = (index) => {
+  const removeCardFromDeck = (index, fromWhich) => {
     if (index === 1000) {
-      setDeck([]);
-      saveDataToLocalStorage("deck", []);
+      setMainDeckMonster([]);
+      setExtraDeckMonster([]);
+      setSideDeckMonster([]);
+
+
+      saveDataToLocalStorage("MainDeck", []);
+      saveDataToLocalStorage("ExtraDeck", []);
+      saveDataToLocalStorage("SideDeck", []);
+
     } else {
-      const newDeck = deck.filter((_, i) => i !== index);
-      setDeck(newDeck);
-      saveDataToLocalStorage("deck", newDeck);
+      if (fromWhich === 0) {
+        const newDeck = mainDeckMonster.filter((_, i) => i !== index);
+        setMainDeckMonster(newDeck);
+        saveDataToLocalStorage("MainDeck", newDeck);
+      }
+      if (fromWhich === 1) {
+        const newDeck = extraDeckMonster.filter((_, i) => i !== index);
+        setExtraDeckMonster(newDeck);
+        saveDataToLocalStorage("ExtraDeck", newDeck);
+      }
+      if (fromWhich === 2) {
+        const newDeck = sideDeckMonster.filter((_, i) => i !== index);
+        setSideDeckMonster(newDeck);
+        saveDataToLocalStorage("SideDeck", newDeck);
+      }
     }
+  };
+
+  const cardClickHandler = (data) => {
+    setData(data);
   };
 
   const onLoad = async () => {
@@ -99,18 +202,63 @@ const DeckViewer = () => {
             <CardInformation data={data}></CardInformation>
           </div>
           <div className="functionButton">
-            <button onClick={() => addCardToDeck(data)}>Add to deck</button>
+            <button onClick={() => addCardToDeck(data,1)}>Add to Side-deck</button>
+            <button onClick={() => addCardToDeck(data,0)}>Add to deck</button>
+            <div className="deleteButton">
             <button onClick={() => removeCardFromDeck(1000)}>Delete all</button>
+
+            </div>
           </div>
         </div>
         <div className="deck-viewer-background">
+          <div className="main-deck">
+            <ul>
+              {mainDeckMonster.map((mainDeckMonster, index) => (
+                <li
+                  key={index}
+                  onClick={() => cardClickHandler(mainDeckMonster.cardData)}
+                  onContextMenu={(e) => {
+                    e.preventDefault();
+                    removeCardFromDeck(index, 0);
+                  }}
+                >
+                  <img src={mainDeckMonster.image} alt={`Card ${index}`} />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="extra-deck">
+            <ul>
+              {extraDeckMonster.map((extraDeckMonster, index) => (
+                <li
+                  key={index}
+                  onClick={() => cardClickHandler(extraDeckMonster.cardData)}
+                  onContextMenu={(e) => {
+                    e.preventDefault();
+                    removeCardFromDeck(index, 1);
+                  }}
+                >
+                  <img src={extraDeckMonster.image} alt={`Card ${index}`} />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="side-deck">
           <ul>
-            {deck.map((card, index) => (
-              <li key={index} onContextMenu={(e) => { e.preventDefault(); removeCardFromDeck(index); }}>
-                <img src={card.image} alt={`Card ${index}`} />
-              </li>
-            ))}
-          </ul>
+              {sideDeckMonster.map((sideDeckMonster, index) => (
+                <li
+                  key={index}
+                  onClick={() => cardClickHandler(sideDeckMonster.cardData)}
+                  onContextMenu={(e) => {
+                    e.preventDefault();
+                    removeCardFromDeck(index, 2);
+                  }}
+                >
+                  <img src={sideDeckMonster.image} alt={`Card ${index}`} />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <div className="card-search">
           <CardSearch getData={getData}></CardSearch>

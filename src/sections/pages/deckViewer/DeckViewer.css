@@ -80,7 +80,9 @@ body{
     /* margin-top: 40vh; */
     margin-left: -32.8vw;
     width: 9vw;
+    height: 2vh;
     max-width: 10vw;
+    text-align: center;
 
     }
     .search-bar{
@@ -98,14 +100,28 @@ body{
         margin: 0;
         
     }
-  .functionButton{
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top:35vh;
-    gap: 15px;
-  }
-  
+    .functionButton {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 35vh;
+    }
+    
+    .functionButton button {
+      padding: 10px;
+      margin-left: -33vw;
+      width: 150px; /* Set a fixed width */
+      height: 40px; /* Set a fixed height */
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .deleteButton button {
+      background-color: #ff0000;
+    }
+    
 ul {
     display: flex;
     flex-direction: row;
@@ -132,9 +148,42 @@ ul {
 }
 .deck-viewer-background img{
     width: 3.2vw;
+    display: flex;
+    flex-direction: column;
    
 }
+.main-deck{
+  border:solid 1px;
+  border-color: rgb(0, 80, 71);
+  height: 60vh;
+}
+.extra-deck{
+  margin-top: 1vh;
 
+  height: 11vh;
+  background-color: rgba(53, 53, 53, 0.199);
+  border:solid 1px;
+  border-color: rgb(0, 80, 71);
+}
+.extra-deck img{
+  width: 3vw;
+  margin-top: -5px;
+  margin-left:1px;
+  margin-right: -8px;
+}
+.side-deck img{
+  width: 3vw;
+  margin-top: -5px;
+  margin-left:1px;
+  margin-right: -8px;
+}
+.side-deck{
+  margin-top: 1vh;
+  height: 11vh;
+  background-color: rgba(53, 53, 53, 0.199);
+  border:solid 1px;
+  border-color: rgb(0, 80, 71);
+}
 @media (max-width:930px) {
 
     .sub-container{
